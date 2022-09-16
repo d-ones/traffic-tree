@@ -35,34 +35,36 @@ class Tree(object):
             math = []
             for intersection in arr:
                 for key, value in intersection.items():
-                    math.append(intersection[key])
+                    math.append(value)
             ratio = (math[len(math)-1]/math[1])
-            if ratio <= 1:
-                print(ratio)
-            elif ratio > 1:
-                print(f'Ratio is above 1 ({ratio}): Correct Node?')
+            print(ratio)
         else:
             print('No Ratio')
+    def balancing(self):
+        total_children = 0
+        total_self = 0
+        for key, value in self.value.items():
+            total_self += value
+        for child in self.children:
+            for key, value, in child.value.items():
+                total_children += value
+        if total_children == total_self:
+            print('Balanced')
+        else:
+            print(f'Unbalanced :/ (value is {total_self}, total is {total_children})')
 
-left = Tree({'intersection2': 1})
-middle = Tree({'intersection3': 2})
-right = Tree({'intersection4': 8})
-root = Tree({'intersection1': 4})
-root.children = [left, middle, right]
 
+#     exit
+#   /      \ 
+# ebr      wbfi9 -------- exit feeders
+#         /  |    \
+#      wblc wbfi10 wbrc - wbfi9 feeders
 
-leftturn_columbia = Tree({'intersection6': 2})
-right2 = Tree({'intersection5': 3}, [leftturn_columbia, Tree({'intersection7': 9})])
-right.children = [right2]
+wblc = Tree({'westbound left columbia': 63})
 
-
-# root (1)
-# /|\
-#2 3 4 (8)
-#     \
-#      5 (3)
-#      /\
-#     6  7
-
-root.printpath(right2)
-root.turn_ratio(leftturn_columbia)
+wbfi9_feeders = [wblc, 
+            Tree({'westbound franklin intersection 10': 504}),
+             Tree({'westbound right columbia': 112})]
+wbfi9 = Tree({'westsbound franklin intersection 9': 674}, wbfi9_feeders)
+exit_feeders = [Tree({'eastbound right intersection 9': 4}), wbfi9]
+exit_east_driveway = Tree({'exit_east_driveway': 543}, exit_feeders)
