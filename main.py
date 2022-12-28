@@ -1,13 +1,16 @@
 class Tree(object):
+    
     def __init__(self, value, children=None):
         self.value = value
         self.children = []
         if children is not None:
             for child in children:
                 self.add_child(child)
+                
     def add_child(self, node):
         assert isinstance(node, Tree)
         self.children.append(node)
+        
     def haspath(self, arr, x):
         arr.append(self.value)  
         check = [key for key, value in self.value.items()][0]
@@ -18,6 +21,7 @@ class Tree(object):
                 return True
         arr.pop(-1)
         return False
+    
     def printpath(self, x):
         arr = []
         arr2 = []
@@ -29,6 +33,7 @@ class Tree(object):
             print(arr2[0])
         else:
             print("No Path")
+            
     def turn_ratio(self, x):
         arr = []
         if (self.haspath(arr, x)):
@@ -40,6 +45,7 @@ class Tree(object):
             print(ratio)
         else:
             print('No Ratio')
+            
     def balancing(self):
         total_children = 0
         total_self = 0
@@ -65,6 +71,9 @@ wblc = Tree({'westbound left columbia': 63})
 wbfi9_feeders = [wblc, 
             Tree({'westbound franklin intersection 10': 504}),
              Tree({'westbound right columbia': 112})]
+
 wbfi9 = Tree({'westsbound franklin intersection 9': 674}, wbfi9_feeders)
+
 exit_feeders = [Tree({'eastbound right intersection 9': 4}), wbfi9]
+
 exit_east_driveway = Tree({'exit_east_driveway': 543}, exit_feeders)
